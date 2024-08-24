@@ -487,7 +487,6 @@ function Blackjack() {
 
   return (
     <div className="blackjack-game">
-      <h1 id="titlePage">StatJack</h1>
       <button id="quizMode" onClick={resetQuizMode}>
   Quiz Mode: {quizMode ? "On" : "Off"} 
 </button>

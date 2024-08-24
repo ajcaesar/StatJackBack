@@ -1,49 +1,81 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { signup } from '../../api';
+import './Auth.css';
+import {Filter} from 'bad-words';
 
-const SignUp = () => {
+function SignUp({ onSignUp, onSwitchToSignIn }) {
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
 
-  const handleSignUp = async (e) => {
+  const filter = new Filter();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+
+    if (filter.isProfane(username)) {
+      setError("Username contains inappropriate language");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError("Passwords don't match");
+      return;
+    }
 
     try {
-      const res = await axios.post('/api/register', { username, password });
-      setMessage(res.data);
+      const data = await signup(username, email, password);
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
+      onSignUp(data.user);
     } catch (err) {
-      setMessage('Error registering user');
+      setError(err.message || 'Error signing up');
     }
   };
 
   return (
-    <div>
+    <div className="auth-container">
       <h2>Sign Up</h2>
-      <form onSubmit={handleSignUp}>
-        <div>
-          <label>Username:</label>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          required
+        />
+        {error && <p className="error-message">{error}</p>}
         <button type="submit">Sign Up</button>
       </form>
-      {message && <p>{message}</p>}
+      <button className="switch-auth" onClick={onSwitchToSignIn}>
+        Already have an account? Sign In
+      </button>
     </div>
   );
-};
+}
 
 export default SignUp;

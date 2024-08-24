@@ -1,0 +1,47 @@
+.top-scores-container {
+    background-color: #2c3e50;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 400px;
+    margin: 20px auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .top-scores-container h2 {
+    color: #ecf0f1;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .top-scores-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .top-scores-table th,
+  .top-scores-table td {
+    padding: 10px;
+    text-align: left;
+    color: #ecf0f1;
+    border-bottom: 1px solid #34495e;
+  }
+  
+  .top-scores-table th {
+    background-color: #34495e;
+    font-weight: bold;
+  }
+  
+  .top-scores-table tr:nth-child(even) {
+    background-color: #2c3e50;
+  }
+  
+  .top-scores-table tr:nth-child(odd) {
+    background-color: #34495e;
+  }
+  
+  .top-scores-loading,
+  .top-scores-error {
+    color: #ecf0f1;
+    text-align: center;
+    padding: 20px;
+  }

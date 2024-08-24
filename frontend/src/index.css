@@ -620,3 +620,19 @@ input:checked + .slider:before {
   width: 95%;
   padding: 10px;
 }
+
+#titlePage {
+  display: block;
+}
+
+#button-signout {
+  padding: 5px 10px;
+  margin: 5px;
+  background-color: #3498db;
+  font-size: 14px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+ 
+}
