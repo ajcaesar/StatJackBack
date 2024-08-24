@@ -1,0 +1,622 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f0f0f0;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.blackjack-game {
+  max-width: 600px; /* Reduced width */
+  margin: 0 auto;
+  padding: 15px; /* Reduced padding */
+  font-family: Arial, sans-serif;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+h1 {
+  text-align: center;
+  color: #2c3e50;
+  font-size: 24px; /* Reduced font size */
+}
+
+.game-settings {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px; /* Reduced gap */
+  margin-bottom: 15px; /* Reduced margin */
+}
+
+.deck-selector, .reset-selector {
+  display: flex;
+  align-items: center;
+}
+
+.deck-selector label, .reset-selector label {
+  margin-right: 5px; /* Reduced margin */
+}
+
+.deck-selector input {
+  width: 40px; /* Reduced width */
+}
+
+.game-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.game-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+  margin: 15px 0; /* Reduced margin */
+}
+
+.game-controls button:hover {
+  background-color: darkblue;
+}
+
+.hand {
+  width: 100%;
+  margin-bottom: 5px; /* Reduced margin */
+  text-align: center;
+}
+
+.hand h2 {
+  color: #34495e;
+  font-size: 20px; /* Reduced font size */
+}
+
+.cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px; /* Reduced gap */
+}
+
+h2 {
+  display: block;
+  font-size: 1.5em;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+  unicode-bidi: isolate;
+  margin-bottom: 5px;
+}
+
+.card {
+  width: auto; 
+  height: 120px; /* Reduced height */
+  border: 1px solid #bdc3c7;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.game-over {
+  text-align: center;
+  margin-top: 0px; /* Reduced margin */
+}
+
+.game-over h2 {
+  color: #e74c3c;
+  font-size: 22px; /* Reduced font size */
+}
+
+.game-over p {
+  margin: 8px 0; /* Reduced margin */
+  font-size: 16px; /* Reduced font size */
+}
+
+.game-over button {
+  margin-top: 5px; /* Reduced margin */
+  padding: 8px 15px; /* Reduced padding */
+  font-size: 14px; /* Reduced font size */
+  /* background-color: #2ecc71; */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  background-color: #2980b9;
+
+}
+
+.game-over button:hover {
+  background-color: darkblue;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.game-switch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.game-label1 {
+  font-size: 18px;
+  margin: 0 10px;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.game-label1.active {
+  color: #2196F3;
+  font-weight: bold;
+}
+
+.blackjack-game {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 15px;
+  font-family: Arial, sans-serif;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.game-settings {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.deck-selector,
+.reset-selector,
+.reset-deck-button {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.deck-selector label,
+.reset-selector label {
+  margin-right: 5px;
+}
+
+.deck-selector input {
+  width: 50px;
+  padding: 5px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.reset-selector {
+  margin-right: 15px;
+}
+
+.reset-selector input {
+  margin-right: 5px;
+}
+
+.reset-deck-button button {
+  padding: 5px 10px;
+  font-size: 14px;
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.reset-deck-button button:hover {
+  background-color: darkblue;
+}
+
+.reset-deck-button p {
+  margin-right: 10px;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.game-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.odds-list {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 14px;
+  font-weight: bold;
+  color: #34495e;
+}
+
+.odds-list p {
+  margin: 0;
+  padding: 5px 10px;
+  background-color: lightgray;
+  border-radius: 5px;
+}
+
+.odds-list p.bust {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.game-controls button {
+  margin: 0 0px;
+  padding: 8px 8px;
+  font-size: 14px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.game-controls button:hover {
+  background-color: darkblue;
+}
+
+#numBusts {
+  margin: 5px;
+}
+
+.numBustsBtn {
+  margin: 0 5px; /* Reduced margin */
+  padding: 8px 15px; /* Reduced padding */
+  font-size: 14px; /* Reduced font size */
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.numBustsBtn:hover {
+  background-color: darkblue;
+}
+
+.odds-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.odds-item {
+  margin: 0 10px;
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  transition: transform 0.3s;
+  margin-bottom: 5px;
+}
+
+.odds-item p {
+  margin: 5px 0;
+  font-size: 10px;
+}
+
+.odds-win {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.odds-tie {
+  background-color: #f1c40f;
+  color: white;
+}
+
+.odds-lose {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.odds-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.wins-counter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin: 20px 0;
+  padding: 10px;
+  background-color: #ecf0f1;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.wins-counter p {
+  font-size: 18px;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.wins-counter .wins, .correct{
+  color: #27ae60;
+  font-weight: bold;
+}
+
+.wins-counter .losses, .incorrect {
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+.na, .equal {
+  color: darkblue;
+  font-weight: bold;
+}
+
+.wins-counter button {
+  padding: 8px 15px;
+  font-size: 14px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.wins-counter button:hover {
+  background-color: darkblue;
+}
+
+#dScore {
+  margin-top: 5px;
+}
+
+#titlePage {
+  margin-top: 10px;
+}
+
+#check-btn {
+  background-color: #3498db;
+  color: white;
+  padding: 6px 10px;
+  font-size: 14px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-bottom: 5px;
+}
+
+#check-btn:hover {
+  background-color: darkblue;
+}
+
+#curr-odds, .future-odds {
+  text-align: center;
+  color: #2c3e50;
+  font-size: 18px; /* Reduced font size */
+}
+
+#curr-odds-container {
+  margin: 0px;
+  margin-top: 3px;
+}
+
+.future-odds {
+  margin: 5px;
+}
+
+#quizMode {
+  background-color: #3498db;
+  color: white;
+  padding: 6px 10px;
+  font-size: 14px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-bottom: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+#quizMode:hover {
+  background-color: darkblue;
+}
+
+.quiz-mode-container {
+  margin-top: 10px;
+  font-size: 18px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #ecf0f1;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 95%;
+}
+
+.quiz-mode-container h2 {
+  font-size: 20px;
+}
+
+#hitGuessBtn, #standGuessBtn, #resetGuessScoreBtn{
+  padding: 10px;
+  margin: 5px;
+  background-color: #3498db;
+  font-size: 16px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#hitGuessBtn:hover, #standGuessBtn:hover, #resetGuessScoreBtn:hover {
+  background-color: darkblue;
+}
+
+.guess-results {
+  margin-top: 0px;
+}
+
+.guess-result {
+  font-size: 18px;
+  margin: 0;
+}
+
+.oddsBetter {
+  margin: 0;
+  padding: 0px;
+}
+
+.correct, .incorrect {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#resetGuessScoreBtn {
+  padding: 8px;
+  font-size: 16px;
+}
+
+.quiz-mode-container h2 {
+  margin-bottom: 0px;
+}
+
+/* .quiz-mode-conttainer HitOddsList.darkgrayodds{
+  background-color: lightgray;
+} */
+
+
+#nonetype { 
+  display: none;
+}
+
+#guessesBox {
+  margin-bottom: 0px;
+}
+
+#guessNameDiv {
+  margin-top: 0px;
+}
+
+#guessBox1 {
+  margin-top: 0px;
+}
+
+.card {
+  width: 100px; /* Set a fixed width for consistency */
+  height: 140px; /* Adjusted height to ensure cards are not cut off */
+  border: 1px solid #bdc3c7;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+  box-sizing: border-box; /* Ensure padding and border are included in width and height */
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensure image covers the card */
+}
+
+#moves2 {
+  background-color: #ecf0f1;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 95%;
+  padding: 10px;
+}
