@@ -77,4 +77,50 @@ export const submitScore = async (username, wins, losses) => {
     }
   };
 
+  export const updateRecentScore = async (userId, wins, losses) => {
+    try {
+      const response = await axios.put(`${API_URL}/auth/updateRecentScore`, { userId, wins, losses });
+      return response.data;
+    } catch (error) {
+      console.error('Error updating recent score:', error.response?.data || error.message);
+      throw error.response?.data || new Error('Network error');
+    }
+  };
+  
+  export const getTopAndRecentScores = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/leaderboard/topWithRecentScores`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching scores:', error.response?.data || error.message);
+      throw error.response?.data || new Error('Network error');
+    }
+  };
+
+export const saveHand = async (userId, playerHand, dealerHand, deck) => {
+    console.log(userId);
+    try {
+      const response = await axios.post(`${API_URL}/auth/saveHand`, {
+        userId,
+        playerHand,
+        dealerHand,
+        deck
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Error saving hand:', error.response?.data || error.message);
+      throw error.response?.data || new Error('Network error');
+    }
+  };
+
+  export const fetchHandData = async (userId, numGames) => {
+    try {
+      const response = await axios.get(`/api/auth/handData/${userId}?limit=${numGames}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching hand data:', error.response?.data || error.message);
+      throw error.response?.data || new Error('Failed to fetch hand data');
+    }
+  };
+
 export default api;

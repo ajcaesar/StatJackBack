@@ -1,35 +1,37 @@
 import React, { useState, useEffect } from 'react';
-import { getTopScores } from '../../api';
+import { getTopAndRecentScores } from '../../api';
 import './Leaderboard.css';
 
 function Leaderboard(props) {
   const [topScores, setTopScores] = useState([]);
+  const [recentScores, setRecentScores] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetchTopScores();
+    fetchScores();
   }, []);
 
-  const fetchTopScores = async () => {
+  const fetchScores = async () => {
     try {
       setLoading(true);
-      const scores = await getTopScores();
-      setTopScores(scores);
+      const { topScores, recentScores } = await getTopAndRecentScores();
+      setTopScores(topScores);
+      setRecentScores(recentScores);
       setLoading(false);
     } catch (err) {
-      setError('Failed to fetch top scores');
+      setError('Failed to fetch scores');
       setLoading(false);
     }
   };
 
-  if (loading) return <div className="leaderboard-loading">Loading top scores...</div>;
+  if (loading) return <div className="leaderboard-loading">Loading scores...</div>;
   if (error) return <div className="leaderboard-error">{error}</div>;
 
   return (
-    <>
+    <><button id="return-to-main-menu" className="return" onClick={() => props.setCurrentView(null)}>return to main menu</button>
     <div className="leaderboard-container">
-      <h2>Top 10 Players</h2>
+      <h2>Top 100 Scores</h2>
       <table className="leaderboard-table">
         <thead>
           <tr>
@@ -37,7 +39,6 @@ function Leaderboard(props) {
             <th>Username</th>
             <th>Wins</th>
             <th>Win Rate</th>
-            <th>Submitted</th>
           </tr>
         </thead>
         <tbody>
@@ -46,14 +47,35 @@ function Leaderboard(props) {
               <td>{index + 1}</td>
               <td>{entry.username}</td>
               <td>{entry.wins}</td>
-              <td>{entry.winRate}%</td>
-              <td>{new Date(entry.timestamp).toLocaleString()}</td>
+              <td>{((entry.wins / (entry.wins + entry.losses)) * 100).toFixed(2)}%</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <h2 className="recent-scores">Your Recent Scores</h2>
+      <table className="leaderboard-table">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Wins</th>
+            <th>Losses</th>
+            <th>Timestamp</th>
+          </tr>
+        </thead>
+        <tbody>
+          {recentScores.map((entry) => (
+            <tr key={entry._id}>
+              <td>{entry.username}</td>
+              <td>{entry.recentScore.wins}</td>
+              <td>{entry.recentScore.losses}</td>
+              <td>{new Date(entry.recentScore.timestamp).toLocaleString()}</td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
-    <button id="return-to-main-menu" onClick={() => props.setCurrentView(null)}>return to main menu</button></>
+    </>
   );
 }
 

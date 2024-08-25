@@ -45,3 +45,11 @@
     text-align: center;
     padding: 20px;
   }
+
+  .recent-scores {
+    margin-top: 15px;
+  }
+
+  #return-to-main-menu.return{
+    margin-top: 15px;
+  }

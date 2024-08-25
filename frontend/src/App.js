@@ -3,7 +3,6 @@ import './App.css';
 import Blackjack from './blackjack/components/blackjack';
 import SignUp from './blackjack/components/SignUp';
 import SignIn from './blackjack/components/SignIn';
-import { getProfile } from './api';
 import Poker from "./blackjack/components/poker/poker";
 import Analytics from "./blackjack/components/analytics/analytics";
 import Leaderboard from "./blackjack/components/leaderboard";
@@ -71,7 +70,8 @@ function App() {
     </div>
   );
 
-  if (currentView === "blackjack")
+  if (currentView === "blackjack") {
+    console.log(user._id);
     return (
     <div className="App">
       <div className="game-switch">
@@ -94,12 +94,12 @@ function App() {
     </header>
     {isBlackjack ? <Blackjack setCurrentView={setCurrentView} user={user} /> : <Poker setCurrentView={setCurrentView}/>}
   </div>
-  );
+  );}
 
   if (currentView === "analytics") {
     return (
       <div className="App">
-        <Analytics setCurrentView={setCurrentView} />
+        <Analytics setCurrentView={setCurrentView} user={user} />
       </div>
     );
   }

@@ -77,4 +77,59 @@ router.get('/scores/top', async (req, res) => {
     }
   });
 
+  router.put('/updateRecentScore', async (req, res) => {
+    try {
+      const { userId, wins, losses } = req.body;
+      const user = await User.findByIdAndUpdate(
+        userId,
+        { 
+          recentScore: { 
+            wins, 
+            losses, 
+            timestamp: new Date() 
+          } 
+        },
+        { new: true }
+      );
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+      res.json({ message: 'Recent score updated successfully', user });
+    } catch (error) {
+      res.status(500).json({ message: 'Error updating recent score', error: error.message });
+    }
+  });
+
+  router.post('/saveHand', async (req, res) => {
+    try {
+      const { userId, playerHand, dealerHand, deck } = req.body;
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+      user.hands.push({ playerHand, dealerHand, deck });
+      await user.save();
+      res.json({ message: 'Hand saved successfully' });
+    } catch (error) {
+      res.status(500).json({ message: 'Error saving hand', error: error.message });
+    }
+  });
+
+  router.get('/handData/:userId', async (req, res) => {
+    try {
+      const { userId } = req.params;
+      const { limit } = req.query;
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+      const handData = user.hands.slice(-limit).reverse();
+      res.json(handData);
+    } catch (error) {
+      res.status(500).json({ message: 'Error fetching hand data', error: error.message });
+    }
+  });
+  
+
+
 module.exports = router;

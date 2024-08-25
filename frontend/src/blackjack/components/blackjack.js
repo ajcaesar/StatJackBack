@@ -5,7 +5,7 @@ import calculateDealerOdds from '../calculations/bjStats';
 import OddsList from './oddsList';
 import calculatePlayerOdds from '../calculations/playerStats';
 import HitOddsList from './hitOdds';
-import { submitScore } from '../../api';
+import { submitScore, updateRecentScore, saveHand } from '../../api';
 
 
 function Blackjack(props) {
@@ -38,6 +38,27 @@ function Blackjack(props) {
       }));
   };
 
+  const handleGameEnd = async () => {
+    setWinner(checkWinner());
+    setGameStatus('over');
+    
+    if (props.user && props.user.id) {
+      try {
+        await saveHand(props.user.id, playerHand, dealerHand, deck);
+      } catch (error) {
+        console.error('Failed to save hand:', error);
+      }
+    }
+  };
+
+  // Call handleGameEnd when the game is over
+  useEffect(() => {
+    if (gameStatus === 'over') {
+      handleGameEnd();
+    }
+  }, [gameStatus]);
+
+
   const handleSubmitScore = async () => {
     if (scoreSubmitted) {
       alert('Score has already been submitted');
@@ -52,6 +73,14 @@ function Blackjack(props) {
       console.error('Error submitting score:', error);
       alert('Failed to submit score. Please try again.');
     }
+
+    try {
+      console.log(props.user.username);
+      console.log(props.user._id);
+        await updateRecentScore(props.user.id, wins, losses);
+      } catch (error) {
+        console.error('Failed to update recent score:', error);
+      }
   };
 
   const initializeDeck = (override=false) => {
@@ -446,12 +475,7 @@ function Blackjack(props) {
     initializeGame(true);
   }
 
-  const checkGuess = (value, ev) => {
-    if (value) {
-
-    }
-  }
-
+  
   const updateGuess = (event) => {
     setPlayerGuess(true);
     let currId = event.target.id;
