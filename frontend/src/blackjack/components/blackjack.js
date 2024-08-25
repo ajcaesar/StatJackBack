@@ -39,7 +39,7 @@ function Blackjack(props) {
   };
 
   const handleGameEnd = async () => {
-    setWinner(checkWinner());
+    // setWinner(checkWinner());
     setGameStatus('over');
     
     if (props.user && props.user.id) {
@@ -67,7 +67,7 @@ function Blackjack(props) {
   
     try {
       await submitScore(props.user.username, wins, losses);
-      setScoreSubmitted(true);
+      setScoreSubmitted(false);
       alert('Score submitted successfully!');
     } catch (error) {
       console.error('Error submitting score:', error);
@@ -360,6 +360,7 @@ function Blackjack(props) {
   }
 
   const checkWinner = (dlr=null, pHand=null, weight=1) => {
+   console.log("weight: " + weight);
     if (dlr && pHand) {
       if (checkBust(pHand)) {
         setLosses(losses + weight);
@@ -475,7 +476,7 @@ function Blackjack(props) {
     initializeGame(true);
   }
 
-  
+
   const updateGuess = (event) => {
     setPlayerGuess(true);
     let currId = event.target.id;

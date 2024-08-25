@@ -115,7 +115,7 @@ export const saveHand = async (userId, playerHand, dealerHand, deck) => {
 
   export const fetchHandData = async (userId, numGames) => {
     try {
-      const response = await axios.get(`/api/auth/handData/${userId}?limit=${numGames}`);
+      const response = await axios.get(`${API_URL}/auth/handData/${userId}?limit=${numGames}`);
       return response.data;
     } catch (error) {
       console.error('Error fetching hand data:', error.response?.data || error.message);

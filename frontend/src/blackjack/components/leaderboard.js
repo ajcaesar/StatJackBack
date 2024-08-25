@@ -53,7 +53,7 @@ function Leaderboard(props) {
         </tbody>
       </table>
 
-      <h2 className="recent-scores">Your Recent Scores</h2>
+      <h2 className="recent-scores">Your Most Recent Score</h2>
       <table className="leaderboard-table">
         <thead>
           <tr>

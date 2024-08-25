@@ -116,9 +116,12 @@ router.get('/scores/top', async (req, res) => {
   });
 
   router.get('/handData/:userId', async (req, res) => {
+    const { userId } = req.params;
+    console.log("id: " + userId);
+    const { limit } = req.query;
+    console.log("limit: " + limit);
+    
     try {
-      const { userId } = req.params;
-      const { limit } = req.query;
       const user = await User.findById(userId);
       if (!user) {
         return res.status(404).json({ message: 'User not found' });

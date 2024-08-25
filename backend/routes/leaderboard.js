@@ -45,4 +45,23 @@ router.get('/topWithRecentScores', async (req, res) => {
     }
   });
 
+  router.get('/handData', async (req, res) => {
+    try {
+      const { userId } = req.params;
+      console.log("id: " + userId);
+      const { limit } = req.query;
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+      const handData = user.hands.slice(-limit).reverse();
+      res.json(handData);
+    } catch (error) {
+      res.status(500).json({ message: 'Error fetching hand data', error: error.message });
+    }
+  });
+
+
+
+
 module.exports = router;
