@@ -75,8 +75,8 @@ function Blackjack(props) {
     }
 
     try {
-      console.log(props.user.username);
-      console.log(props.user._id);
+      // console.log(props.user.username);
+      // console.log(props.user._id);
         await updateRecentScore(props.user.id, wins, losses);
       } catch (error) {
         console.error('Failed to update recent score:', error);
@@ -360,7 +360,7 @@ function Blackjack(props) {
   }
 
   const checkWinner = (dlr=null, pHand=null, weight=1) => {
-   console.log("weight: " + weight);
+  //  console.log("weight: " + weight);
     if (dlr && pHand) {
       if (checkBust(pHand)) {
         setLosses(losses + weight);

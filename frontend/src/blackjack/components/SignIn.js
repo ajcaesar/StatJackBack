@@ -15,8 +15,8 @@ function SignIn({ onSignIn, onSwitchToSignUp }) {
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
       onSignIn(data.user);
-      console.log(data.user.username);
-      console.log(data.user.id);
+      // console.log(data.user.username);
+      // console.log(data.user.id);
     } catch (err) {
       setError(err.message || 'Error signing in');
     }

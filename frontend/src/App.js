@@ -71,7 +71,7 @@ function App() {
   );
 
   if (currentView === "blackjack") {
-    console.log(user._id);
+    // console.log(user._id);
     return (
     <div className="App">
       <div className="game-switch">
