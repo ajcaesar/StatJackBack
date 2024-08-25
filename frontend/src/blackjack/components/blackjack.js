@@ -45,7 +45,7 @@ function Blackjack(props) {
     }
   
     try {
-      await submitScore(props.user.username, wins);
+      await submitScore(props.user.username, wins, losses);
       setScoreSubmitted(true);
       alert('Score submitted successfully!');
     } catch (error) {

@@ -57,9 +57,9 @@ export const updateStats = async (stats) => {
   }
 };
 
-export const submitScore = async (username, score) => {
+export const submitScore = async (username, wins, losses) => {
     try {
-      const response = await axios.post(`${API_URL}/leaderboard/submit`, { username, score });
+      const response = await axios.post(`${API_URL}/leaderboard/submit`, { username, wins, losses });
       return response.data;
     } catch (error) {
       console.error('Error submitting score:', error.response?.data || error.message);

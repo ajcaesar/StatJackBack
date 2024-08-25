@@ -27,15 +27,17 @@ function Leaderboard(props) {
   if (error) return <div className="leaderboard-error">{error}</div>;
 
   return (
+    <>
     <div className="leaderboard-container">
-    <button id="return-to-main-menu" onClick={() => props.setCurrentView(null)}>return to main menu</button>
-      <h2>Top 10 Scores</h2>
+      <h2>Top 10 Players</h2>
       <table className="leaderboard-table">
         <thead>
           <tr>
             <th>Rank</th>
             <th>Username</th>
-            <th>Score</th>
+            <th>Wins</th>
+            <th>Win Rate</th>
+            <th>Submitted</th>
           </tr>
         </thead>
         <tbody>
@@ -43,12 +45,15 @@ function Leaderboard(props) {
             <tr key={entry._id}>
               <td>{index + 1}</td>
               <td>{entry.username}</td>
-              <td>{entry.score}</td>
+              <td>{entry.wins}</td>
+              <td>{entry.winRate}%</td>
+              <td>{new Date(entry.timestamp).toLocaleString()}</td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
+    <button id="return-to-main-menu" onClick={() => props.setCurrentView(null)}>return to main menu</button></>
   );
 }
 
