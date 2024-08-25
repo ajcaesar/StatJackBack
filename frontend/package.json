@@ -50,6 +50,5 @@
     "file-loader": "^6.2.0",
     "gh-pages": "^6.1.1",
     "react-app-rewired": "^2.2.1"
-  },
-  "homepage": "https://ajcaesar.github.io/StatJack"
+  }
 }
