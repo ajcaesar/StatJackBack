@@ -569,13 +569,14 @@ function Blackjack(props) {
         }
       </div>
       <div className='wins-counter'>
-      <div id="wins-loss-tally"><p className='wins'>wins: {wins}</p>
-      <p className='losses'>losses: {losses}</p></div><button id="reset-score-button" onClick={resetWins}>reset</button>
+      <button id="reset-score-button" onClick={resetWins}>reset score</button>
+      <div id="wins-loss-tally"><p className='wins'>won: {wins}</p>
+      <p className='losses'>lost: {losses}</p></div>
       <button 
       onClick={handleSubmitScore} 
       disabled={scoreSubmitted}
     >
-      {scoreSubmitted ? 'Score Submitted' : 'Submit Score'}
+      {scoreSubmitted ? 'Score Submitted' : 'Submit to leaderboard'}
     </button>
       </div>
       
