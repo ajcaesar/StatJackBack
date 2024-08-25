@@ -45,6 +45,7 @@ function App() {
 
   if (!user) {
     return (
+      <>
       <div className="App">
       <h1 id="titlePage">StatJack</h1>
         {showSignIn ? (
@@ -52,7 +53,9 @@ function App() {
         ) : (
           <SignUp onSignUp={handleSignUp} onSwitchToSignIn={() => setShowSignIn(true)} />
         )}
+        <p>The backend hosted by render can take >1 minute to boot</p>
       </div>
+      </>
     );
   }
 
