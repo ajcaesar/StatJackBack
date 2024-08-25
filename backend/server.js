@@ -7,10 +7,10 @@ require('dotenv').config();
 
 const app = express();
 
-// app.use(cors({
-//     origin: ['https://example.com', 'https://another-example.com']
-//   }));
-app.use(cors());
+app.use(cors({
+    origin: ["https://statjack2.onrender.com"]
+  }));
+// app.use(cors());
 app.use(express.json());
 
 mongoose.connect(process.env.MONGODB_URI, {
