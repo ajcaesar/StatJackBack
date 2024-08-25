@@ -67,7 +67,7 @@ function Analytics({ setCurrentView, user }) {
 
   const RenderRecord = ({ record }) => {
     return (
-      <div className="table-container">
+      <div className="table-container-record">
         <table>
           <thead>
             <tr>

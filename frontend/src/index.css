@@ -648,8 +648,8 @@ input:checked + .slider:before {
 }
 
 .button-container1 button, #return-to-main-menu {
-  padding: 5px 10px;
-  margin: 5px;
+  padding: 10px 20px;
+  margin: 3px;
   background-color: #3498db;
   font-size: 14px;
   color: white;
