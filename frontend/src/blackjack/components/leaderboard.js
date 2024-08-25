@@ -31,7 +31,7 @@ function Leaderboard(props) {
   return (
     <><button id="return-to-main-menu" className="return" onClick={() => props.setCurrentView(null)}>return to main menu</button>
     <div className="leaderboard-container">
-      <h2>Top 100 Scores</h2>
+      <h2>Top 100 Player Scores</h2>
       <table className="leaderboard-table">
         <thead>
           <tr>
@@ -53,7 +53,7 @@ function Leaderboard(props) {
         </tbody>
       </table>
 
-      <h2 className="recent-scores">Your Most Recent Score</h2>
+      <h2 className="recent-scores">Your Most Recent Submission</h2>
       <table className="leaderboard-table">
         <thead>
           <tr>
