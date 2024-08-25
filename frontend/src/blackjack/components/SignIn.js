@@ -6,21 +6,24 @@ function SignIn({ onSignIn, onSwitchToSignUp }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setLoading(true);
     try {
       const data = await signin(username, password);
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
       onSignIn(data.user);
-      // console.log(data.user.username);
-      // console.log(data.user.id);
     } catch (err) {
       setError(err.message || 'Error signing in');
+    } finally {
+      setLoading(false);
     }
   };
+
 
   return (
     <div className="auth-container">
@@ -41,7 +44,7 @@ function SignIn({ onSignIn, onSwitchToSignUp }) {
           required
         />
         {error && <p className="error-message">{error}</p>}
-        <button type="submit">Sign In</button>
+        {loading ? <p className="loading-message">Loading...</p> : <button type="submit">Sign In</button>}
       </form>
       <button className="switch-auth" onClick={onSwitchToSignUp}>
         Don't have an account? Sign Up

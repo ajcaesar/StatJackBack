@@ -737,6 +737,11 @@ input:checked + .slider:before {
   margin-bottom: 5px;
 }
 
+.loading-message {
+  color: white;
+  font-weight: bold;
+}
+
 
 
 

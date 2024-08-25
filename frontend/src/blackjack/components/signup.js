@@ -9,20 +9,24 @@ function SignUp({ onSignUp, onSwitchToSignIn }) {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const filter = new Filter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setLoading(true);
 
     if (filter.isProfane(username)) {
       setError("Username contains inappropriate language");
+      setLoading(false);
       return;
     }
 
     if (password !== confirmPassword) {
       setError("Passwords don't match");
+      setLoading(false);
       return;
     }
 
@@ -33,8 +37,11 @@ function SignUp({ onSignUp, onSwitchToSignIn }) {
       onSignUp(data.user);
     } catch (err) {
       setError(err.message || 'Error signing up');
+    } finally {
+      setLoading(false);
     }
   };
+
 
   return (
     <div className="auth-container">
@@ -69,7 +76,7 @@ function SignUp({ onSignUp, onSwitchToSignIn }) {
           required
         />
         {error && <p className="error-message">{error}</p>}
-        <button type="submit">Sign Up</button>
+        {loading ? <p className="loading-message">Loading...</p> : <button type="submit">Sign Up</button>}
       </form>
       <button className="switch-auth" onClick={onSwitchToSignIn}>
         Already have an account? Sign In
