@@ -57,4 +57,24 @@ export const updateStats = async (stats) => {
   }
 };
 
+export const submitScore = async (username, score) => {
+    try {
+      const response = await axios.post(`${API_URL}/leaderboard/submit`, { username, score });
+      return response.data;
+    } catch (error) {
+      console.error('Error submitting score:', error.response?.data || error.message);
+      throw error.response?.data || new Error('Network error');
+    }
+  };
+  
+  export const getTopScores = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/leaderboard/top`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching top scores:', error.response?.data || error.message);
+      throw error.response?.data || new Error('Network error');
+    }
+  };
+
 export default api;

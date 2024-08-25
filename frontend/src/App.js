@@ -1,19 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import Blackjack from './blackjack/blackjack';
+import Blackjack from './blackjack/components/blackjack';
 import SignUp from './blackjack/components/SignUp';
 import SignIn from './blackjack/components/SignIn';
 import { getProfile } from './api';
-import Poker from "./poker/poker";
+import Poker from "./blackjack/components/poker/poker";
+import Analytics from "./blackjack/components/analytics/analytics";
+import Leaderboard from "./blackjack/components/leaderboard";
 
 function App() {
   const [user, setUser] = useState(null);
   const [showSignIn, setShowSignIn] = useState(true);
   const [isBlackjack, setIsBlackjack] = useState(true);
+  const [currentView, setCurrentView] = useState(() => JSON.parse(localStorage.getItem('currentView') || null));
 
   const handleGameChange = () => {
     setIsBlackjack(!isBlackjack);
   };
+
+  useEffect(() => {
+    localStorage.setItem('currentView', JSON.stringify(currentView));
+  }, [currentView]);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -36,6 +43,7 @@ function App() {
     localStorage.removeItem('user');
     setUser(null);
   };
+
   if (!user) {
     return (
       <div className="App">
@@ -49,7 +57,22 @@ function App() {
     );
   }
 
-  return (
+  if (!currentView) return (
+    <div className="App">
+        <div className="welcome-screen">
+          <h1>Welcome, {user.username}!</h1>
+          <div className="button-container1">
+            <button onClick={() => setCurrentView('blackjack')}>Play StatJack</button>
+            <button onClick={() => setCurrentView('analytics')}>Get Analytics</button>
+            <button onClick={() => setCurrentView('leaderboard')}>View Leaderboard</button>
+            <button onClick={handleSignOut}>Sign Out</button>
+          </div>
+        </div>
+    </div>
+  );
+
+  if (currentView === "blackjack")
+    return (
     <div className="App">
       <div className="game-switch">
       <span className={`game-label1 ${isBlackjack ? 'active' : ''}`}>StatJack</span>
@@ -63,15 +86,31 @@ function App() {
       </label>
       <span className={`game-label1 ${!isBlackjack ? 'active' : ''}`}>Poker Calculator</span>
     </div>
-    <div className="user-info">
+    {/* <div className="user-info">
         <span>Welcome, {user.username}</span>
         <button id="button-signout" onClick={handleSignOut}>Sign Out</button>
-      </div>
+      </div> */}
     <header className="App-header">
     </header>
-    {isBlackjack ? <Blackjack /> : <Poker />}
+    {isBlackjack ? <Blackjack setCurrentView={setCurrentView} user={user} /> : <Poker setCurrentView={setCurrentView}/>}
   </div>
   );
-}
 
+  if (currentView === "analytics") {
+    return (
+      <div className="App">
+        <Analytics setCurrentView={setCurrentView} />
+      </div>
+    );
+  }
+
+  if (currentView === "leaderboard") {
+    return (
+      <div className="App">
+        <Leaderboard setCurrentView={setCurrentView}/>
+      </div>
+    );
+  }
+
+}
 export default App;

@@ -1,18 +1,26 @@
-import express from 'express';
-import dotenv from "dotenv";
-import {connectDB} from "./config/db.js";
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const authRoutes = require('./routes/auth');
+const leaderboardRoutes = require('./routes/leaderboard');
+require('dotenv').config();
 
-dotenv.config();
+const app = express();
 
-const app =  express();
+app.use(cors());
+app.use(express.json());
 
-app.get("/", (req, res) => {
-    res.send("server is ready");
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 })
+.then(() => console.log('Connected to MongoDB'))
+.catch(err => console.error('Could not connect to MongoDB', err));
 
-app.listen(5001,() => {
-    connectDB();
-    console.log("server listening on port 5001")
-})
+app.use('/api/auth', authRoutes);
+app.use('/api/leaderboard', leaderboardRoutes);
 
-console.log(process.env.MONGO_URI);
+// app.use('/api/auth', scoreRoutes); // Add this line
+
+const PORT = process.env.PORT || 5001;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
